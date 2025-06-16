@@ -36,7 +36,6 @@ def build_record(path: pathlib.Path) -> dict:
         text = path.read_text(encoding="utf-8")
     except UnicodeDecodeError:
         text = path.read_text(encoding="latin-1")
-
     return {
         "text": text,
         "id": str(uuid.uuid4()),
@@ -44,7 +43,6 @@ def build_record(path: pathlib.Path) -> dict:
             "file_path": str(path),
             "language": detect_language(path),
             "language_script": "Latn",
-            "source": "convivenza_blogs",
         },
     }
 

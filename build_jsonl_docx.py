@@ -64,7 +64,7 @@ def docx_to_text(path: pathlib.Path) -> str:
 
 def lang_for(i: int) -> str:
     """rm, de, rm, de, … based on file index."""
-    return "rm" if i % 2 == 0 else "de"
+    return "de" if i  == 1 else "rm"
 
 
 def build_record(path: pathlib.Path, idx: int) -> dict:
@@ -75,7 +75,8 @@ def build_record(path: pathlib.Path, idx: int) -> dict:
             "filename": path.name,
             "language": lang_for(idx),
             "language_script": "Latn",
-            "source": "Gemeinde Sagogn",
+            #"Idiom": "Surmiran", 
+            #"source": "Lantsch",
         },
     }
 
