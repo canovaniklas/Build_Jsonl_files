@@ -8,7 +8,6 @@ One record ➜ one file, following:
   "id": "<uuid4>",
   "metadata": {
       "filename": "<basename>",
-      "file_path": "<absolute path>",
       "language": "<de|rm|unknown>",a
       "language_script": "Latn",
       "source": "convivenza_blogs"
@@ -23,12 +22,12 @@ def detect_language(path: pathlib.Path) -> str:
     ext = path.suffix.lstrip(".").lower()
     return ext if ext in {"de", "rm"} else "unknown"
 
-
 def iter_text_files(root: pathlib.Path):
-    """Yield all regular files under root (recursively)."""
-    for p in root.rglob("*"):
+    """Yield all regular files under *root* in lexicographic order."""
+    for p in sorted(root.rglob("*")):          # <- sort once, simplest
         if p.is_file():
             yield p
+
 
 
 def build_record(path: pathlib.Path) -> dict:
@@ -40,8 +39,7 @@ def build_record(path: pathlib.Path) -> dict:
         "text": text,
         "id": str(uuid.uuid4()),
         "metadata": {
-            "file_path": str(path),
-            "language": detect_language(path),
+            "language": "rm",
             "language_script": "Latn",
         },
     }
